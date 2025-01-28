@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin-layout.html}">
+<head>
+    <title>Edit Role</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Edit Role</h1>
+
+        <form th:action="@{/admin/roles/{id}/update(id=${role.id})}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Role Name:</label>
+                <input type="text" name="name" th:value="${role.name}" required
+                       class="w-full border rounded py-2 px-3 focus:outline-none focus:border-indigo-500">
+            </div>
+            <button type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Save Changes
+            </button>
+            <a href="/admin/roles"
+               class="ml-2 text-gray-600 hover:underline">Cancel</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{user-layout}">
+<head>
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS -->
+</head>
+<body>
+<div layout:fragment="content" class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">
+        Welcome, <span th:text="${username}">User</span>!
+    </h1>
+
+
+
+</div>>
+</body>
+</html>

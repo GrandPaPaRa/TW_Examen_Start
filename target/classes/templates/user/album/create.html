@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{user-layout.html}">
+<head>
+    <title>Create Album</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="bg-white rounded-lg shadow p-6 max-w-lg mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Create New Album</h1>
+
+        <!-- Display error message if the album name is taken -->
+        <div th:if="${errorMessage}" class="bg-red-100 text-red-700 p-4 rounded mb-4">
+            <p th:text="${errorMessage}"></p>
+        </div>
+
+        <form th:action="@{/user/albums/create}" method="post" class="space-y-4">
+            <div>
+                <label for="albumName" class="block text-sm font-medium text-gray-700">Album Name:</label>
+                <input type="text" id="albumName" name="albumName" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                Create Album
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="/user/home" class="text-indigo-600 hover:underline">Back to Home</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

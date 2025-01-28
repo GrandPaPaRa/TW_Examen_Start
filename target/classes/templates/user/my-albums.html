@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{user-layout}">
+<head>
+    <title>My Albums</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS -->
+</head>
+<body>
+<div layout:fragment="content" class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">
+        Welcome, <span th:text="${username}">User</span>!
+    </h1>
+
+    <h2 class="text-xl font-semibold text-gray-600 mb-6">My Albums</h2>
+
+    <!-- Search input -->
+    <input type="text" id="searchInput" oninput="filterAlbums()"
+           placeholder="Search albums..."
+           class="w-full p-2 border border-gray-300 rounded mb-4">
+
+
+    <!-- Check if albums exist -->
+    <div th:if="${albums == null or albums.isEmpty()}">
+        <p class="text-gray-500 text-lg">
+            You have no albums to display!
+            <a href="/user/albums/create" class="text-blue-600 hover:underline">Create a new one here</a>.
+        </p>
+    </div>
+
+    <!-- Grid Layout for Albums -->
+    <div th:if="${albums != null and !albums.isEmpty()}"
+         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="albumGrid">
+        <div th:each="album : ${albums}"
+             class="bg-white rounded-lg shadow-md p-4 album-item">
+            <h3 class="text-lg font-bold text-indigo-600 mb-2 album-title" th:text="${album.name}">Album Title</h3>
+            <p class="text-sm text-gray-500">Click below to view the album.</p>
+            <a th:href="@{'/user/albums/' + ${album.id} + '/view'}"
+               class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                View Album
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function filterAlbums() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let albums = document.querySelectorAll(".album-item");
+
+
+            albums.forEach(album => {
+                let title = album.querySelector(".album-title").textContent.toLowerCase();
+                if (title.includes(input)) {
+                    album.style.display = "block";  // Show matching album
+                } else {
+                    album.style.display = "none";   // Hide non-matching album
+                }
+            });
+        }
+    </script>
+</div>
+
+</body>
+</html>

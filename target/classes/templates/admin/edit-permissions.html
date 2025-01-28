@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin-layout.html}">
+<head>
+    <title>Edit Permissions</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Edit Permissions for <span th:text="${role.name}"></span></h1>
+
+        <form th:action="@{/admin/roles/{id}/permissions/add(id=${role.id})}" method="post">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Add Permission:</label>
+                <select name="httpMethod" required class="w-full border rounded py-2 px-3 focus:outline-none focus:border-indigo-500">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="FETCH">PATCH</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+                <input type="text" name="url" placeholder="URL (e.g., /admin/users)" required
+                       class="w-full border rounded py-2 px-3 focus:outline-none focus:border-indigo-500">
+                <button type="submit"
+                        class="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Add Permission
+                </button>
+            </div>
+        </form>
+
+        <h2 class="text-xl font-bold text-gray-800 mt-6">Current Permissions</h2>
+        <ul>
+            <li th:each="permission : ${role.permissions}" class="flex justify-between items-center">
+                <span th:text="${permission.httpMethod} + ' ' + ${permission.url}"></span>
+                <form th:action="@{/admin/roles/{roleId}/permissions/{permId}/remove(roleId=${role.id}, permId=${permission.id})}" method="post">
+                    <button type="submit"
+                            class="bg-red-500 text-white px-2 py-1 text-xs rounded hover:bg-red-600">
+                        Remove
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

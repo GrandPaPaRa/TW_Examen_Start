@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin-layout.html}">
+<head>
+    <title>Update Roles</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="bg-white rounded-lg shadow p-6 max-w-lg mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">
+            Update Roles for <span class="text-indigo-600" th:text="${user.email}"></span>
+        </h1>
+
+        <form th:action="@{/admin/users/{id}/roles(id=${user.id})}" method="post" class="space-y-4">
+            <div>
+                <label for="roleId" class="block text-sm font-medium text-gray-700">Select Role:</label>
+                <select name="roleId" id="roleId" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                    <option th:each="role : ${availableRoles}" th:value="${role.id}" th:text="${role.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                Add Role
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="/admin/users" class="text-indigo-600 hover:underline">Back to User List</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
