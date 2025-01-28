@@ -24,11 +24,6 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("welcomeMessage", "Hello Admin");
-        return "admin/dashboard";
-    }
 
     @GetMapping("/users")
     public String userManagement(Model model) {
@@ -74,7 +69,6 @@ public class AdminController {
         if (user != null && role != null) {
             user.getRoles().remove(role);
             userService.save(user); // Save the updated user
-            redirectAttributes.addFlashAttribute("successMessage", "Role removed successfully.");
         }
 
         return "redirect:/admin/users";

@@ -92,8 +92,14 @@ public class RoleController {
 
     // Delete Role
     @PostMapping("/{id}/delete")
-    public String deleteRole(@PathVariable Long id) {
-        roleService.deleteById(id);
+    public String deleteRole(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        RoleEntity admin = roleService.findByName("ADMIN").orElse(null);
+
+        if(roleService.findById(id).equals(admin))
+            redirectAttributes.addFlashAttribute("errorMessage", "You cannot delete ADMIN role!");
+        else
+            roleService.deleteById(id);
+
         return "redirect:/admin/roles";
     }
 

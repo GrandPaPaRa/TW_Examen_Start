@@ -30,7 +30,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authorities.contains(new SimpleGrantedAuthority(Role.ADMIN.name()))) {
             logger.info("redirecting to admin endpoint");
-            response.sendRedirect("/admin/dashboard");
+            response.sendRedirect("/admin/users");
         } else if (authorities.contains(new SimpleGrantedAuthority(Role.USER.name()))) {
             logger.info("redirecting to home endpoint");
             response.sendRedirect("/home");
