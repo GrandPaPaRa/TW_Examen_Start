@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("")
 public class LoginController {
     private UserService userService;
     private Logger logger = LoggerFactory.getLogger(RegisterController.class);
@@ -20,12 +20,16 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public String loadLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute("loginError", "Invalid email or password. Please try again.");
         }
         model.addAttribute("user", new UserEntity());
         return "authentication/login";
+    }
+    @GetMapping("")
+    public String loadLoginPage(Model model) {
+        return "redirect:/login";
     }
 }
